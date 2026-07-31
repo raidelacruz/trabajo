@@ -1,0 +1,8 @@
+services:
+  bd_campo_deportivo:
+    image: mysql:8.0
+    ports:
+      - "3310:3306" # Cambiamos la puerta externa al 3310 para evitar conflictos
+    environment:
+      - MYSQL_ROOT_PASSWORD=C4mpoDeportivo2026!
+      - MYSQL_DATABASE=reservas_campo
