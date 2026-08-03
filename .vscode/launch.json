@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-CanchitasanmartinApplication<canchitasanmartin>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.proyectocanchita.canchitasanmartin.CanchitasanmartinApplication",
+      "projectName": "canchitasanmartin",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

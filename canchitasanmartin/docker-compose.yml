@@ -6,3 +6,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=C4mpoDeportivo2026!
       - MYSQL_DATABASE=reservas_campo
+    volumes:
+      - mysql_data:/var/lib/mysql # <-- 1. MAPEO DEL VOLUMEN
+
+volumes:
+  mysql_data: # <-- 2. DECLARACIÓN DEL VOLUMEN
