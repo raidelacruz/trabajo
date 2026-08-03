@@ -17,10 +17,10 @@ CREATE TABLE canchas(
 
 CREATE TABLE reservas (
     id_reserva INT PRIMARY KEY AUTO_INCREMENT,
-    id_clientes INT UNIQUE NOT NULL,
-    id_canchas INT UNIQUE NOT NULL,
+    id_clientes INT  NOT NULL,
+    id_canchas INT NOT NULL, 
     fecha_cancha DATE NOT NULL,
-    hora_inicio TIME UNIQUE NOT NULL,
+    hora_inicio TIME NOT NULL,
     hora_fin TIME NOT NULL,
     estado ENUM('pendiente','confirmada','cancelada','finalizada')DEFAULT 'pendiente',
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -31,7 +31,21 @@ CREATE TABLE reservas (
     CONSTRAINT fk_reservas_canchas FOREIGN KEY (id_canchas) REFERENCES canchas(id)
     ON UPDATE CASCADE ON DELETE RESTRICT,
 
+    CONSTRAINT uq_cancha_fecha_hora UNIQUE (id_canchas, fecha_cancha, hora_inicio),
+
     -- VALIDAR FECHAS
     
     CONSTRAINT chk_fechas_reserva CHECK (hora_fin > hora_inicio)
+);
+
+CREATE TABLE pagos(
+    id_pago INT PRIMARY KEY AUTO_INCREMENT,
+    monto DECIMAL(10,2) NOT NULL,
+    id_reservas INT NOT NULL,
+    fecha_pago DATE NOT NULL,
+    hora_pago TIME NOT NULL,
+
+    CONSTRAINT fk_pagos_reservas FOREIGN KEY (id_reservas) REFERENCES reservas(id_reserva)
+    ON UPDATE CASCADE ON DELETE RESTRICT
+
 );
