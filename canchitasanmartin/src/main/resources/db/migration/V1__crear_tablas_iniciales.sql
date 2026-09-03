@@ -1,5 +1,5 @@
 CREATE TABLE clientes(
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     dni VARCHAR(15) UNIQUE NULL,
@@ -17,7 +17,7 @@ CREATE TABLE canchas(
 
 CREATE TABLE reservas (
     id_reserva INT PRIMARY KEY AUTO_INCREMENT,
-    id_clientes INT  NOT NULL,
+    id_clientes BIGINT  NOT NULL,
     id_canchas INT NOT NULL, 
     fecha_cancha DATE NOT NULL,
     hora_inicio TIME NOT NULL,
