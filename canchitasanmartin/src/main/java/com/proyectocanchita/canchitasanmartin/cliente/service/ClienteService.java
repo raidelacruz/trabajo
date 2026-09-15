@@ -7,6 +7,8 @@ import com.proyectocanchita.canchitasanmartin.cliente.DTO.ClienteRequestDTO;
 import com.proyectocanchita.canchitasanmartin.cliente.DTO.ClienteResponseDTO;
 import com.proyectocanchita.canchitasanmartin.cliente.model.Cliente;
 import com.proyectocanchita.canchitasanmartin.cliente.repository.ClienteRepository;
+import com.proyectocanchita.canchitasanmartin.common.exception.RecursoConflictoException;
+import com.proyectocanchita.canchitasanmartin.common.exception.RecursoNoEncontradoException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +18,7 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
     
     public ClienteResponseDTO buscarPorId(Long id){
-       Cliente cliente = clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Cliente con id: "+id+" no encontrado"));
+       Cliente cliente = clienteRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Cliente con id: "+id+" no encontrado"));
         ClienteResponseDTO respuestaDTO = new ClienteResponseDTO(
             cliente.getId(),
             cliente.getNombre(),cliente.getApellido(),
@@ -41,7 +43,7 @@ public class ClienteService {
     public ClienteResponseDTO crearCliente(ClienteRequestDTO datosCliente){
         if (datosCliente.getDni() != null) {
             if (clienteRepository.findByDni(datosCliente.getDni()).isPresent()) {
-                throw new RuntimeException("EL DNI: "+datosCliente.getDni()+" ya esta usado");
+                throw new RecursoConflictoException("EL DNI: "+datosCliente.getDni()+" ya esta usado");
             }
         }
         Cliente nuevocliente = new Cliente();
@@ -64,7 +66,7 @@ public class ClienteService {
     }
 
     public ClienteResponseDTO actualizarCliente(ClienteRequestDTO datosClienteActualizado, Long id){
-       Cliente clienteExistente = clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Cliente con id: "+id+" no encontrado"));
+       Cliente clienteExistente = clienteRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Cliente con id: "+id+" no encontrado"));
         clienteExistente.setNombre(datosClienteActualizado.getNombre());
         clienteExistente.setApellido(datosClienteActualizado.getApellido());
         clienteExistente.setDni(datosClienteActualizado.getDni());
@@ -83,7 +85,7 @@ public class ClienteService {
     }
 
     public void eliminarCliente(Long id){
-        clienteRepository.findById(id).orElseThrow(()-> new RuntimeException("Cliente con id: "+id+" no encontrado"));
+        clienteRepository.findById(id).orElseThrow(()-> new RecursoNoEncontradoException("Cliente con id: "+id+" no encontrado"));
         clienteRepository.deleteById(id);
     }
 }
