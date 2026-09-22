@@ -2,6 +2,7 @@ package com.proyectocanchita.canchitasanmartin.cancha.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectocanchita.canchitasanmartin.cancha.DTO.CanchaRequestDTO;
@@ -29,12 +31,13 @@ public class CanchaController {
         return  canchaService.listarTodas();
     }
 
-    @GetMapping("/id")
+    @GetMapping("{/id}")
     public CanchaResponseDTO buscarPorId(@PathVariable Integer id){
         return canchaService.buscarPorId(id);
     }
 
-    @PostMapping 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED) 
     public CanchaResponseDTO crearCancha(@Valid  @RequestBody CanchaRequestDTO datosCancha){
     return canchaService.crearCancha(datosCancha);}
 
