@@ -1,0 +1,1 @@
+ALTER TABLE reservas ADD COLUMN monto_total DECIMAL(10,2) NOT NULL;
