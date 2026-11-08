@@ -46,4 +46,6 @@ public class Reserva {
     private EstadoReserva estado;
     @Column (name="fecha_creacion",insertable=false,updatable=false)
     private LocalDateTime fechaCreacion;
+    @Column (name="monto_total", nullable = false)
+    private BigDecimal montoTotal;
 }
